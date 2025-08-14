@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Newsitem from './Newsitem'
 
 export class News extends Component {
+    // Free api has a limited hit so we use array method to devlopment time .
     // articles = [
     //     {
     //         "source": {
@@ -189,34 +190,68 @@ export class News extends Component {
     // ]
     constructor() {
         super();
-        console.log("hello i am constructor from news app");
+        // console.log("hello i am constructor from news app");
         this.state = {
-        //    articles: this.articles,
-           articles:[],
-           loding :false
+            //    articles: this.articles,
+            articles: [],
+            loding: false,
+            page: 1
         }
     }
-    async componentDidMount(){
+    async componentDidMount() {
         console.log("cdm");
-        let url="https://newsapi.org/v2/top-headlines?country=us&apiKey=306db2e04ab84c2cb2d17ea5008769b4"
+        // let url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=1";
+        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page}&pageSize=20`;
         let data = await fetch(url);
         let parseData = await data.json()
-        console.log(parseData)
-        this.setState({articles:parseData.articles})
-       
+        // console.log(parseData)
+        this.setState({ articles: parseData.articles , totalResult:parseData.totalResults})
+    }
+    handlePrevclick= async ()=>{
+        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page -1}&pageSize=20`;
+        let data = await fetch(url);
+        let parseData = await data.json()
+        // console.log(parseData)
+        this.setState({
+            page:this.state.page -1,
+            articles: parseData.articles,
+            totalResults: parseData.totalResults
+        })
+    }
+
+    handleNextclick= async()=>{
+        // console.log("cdm");
+        if(this.state.page + 1 > Math.ceil(this.state.totalResults/20)){
+            return;
+        }
+        else{
+            let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page +1}&pageSize=20`;
+            let data = await fetch(url);
+            let parseData = await data.json()
+            console.log(parseData)
+            this.setState({
+                page:this.state.page +1,
+                articles: parseData.articles,
+                totalResults: parseData.totalResults
+            })
+    }
     }
     render() {
         return (
             <div className='container my-3'>
-                <h2> News Hub Top Headlines</h2>
+                <h2 className='text-center'> News Hub Top Headlines</h2>
                 <div className="row">
-                     {this.state.articles.map((element)=>{
-                    return <div className="col-md-4" key={element.url}>
-                        <Newsitem  title={element.title?.slice(0,45) || ""} description={element.description?.slice(0, 88) || ""} imageurl={element.urlToImage}  newsUrl={element.url}/>
-                    </div>
-                     })}
-                    
+                    {this.state.articles.map((element) => {
+                        return <div className="col-md-4" key={element.url}>
+                            <Newsitem title={element.title?.slice(0, 45) || ""} description={element.description?.slice(0, 88) || ""} imageurl={element.urlToImage} newsUrl={element.url} />
+                        </div>
+                    })}
                 </div>
+                <div className="d-flex justify-content-between">
+                    <button type='button' disabled={this.state.page<=1} className='btn btn-dark' onClick={this.handlePrevclick}> &larr; Previous</button>
+                    <button type='button' className='btn btn-dark'  onClick={this.handleNextclick} disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / 20)} > Next &rarr; </button>
+                </div>
+
             </div>
         )
     }
