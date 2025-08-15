@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Newsitem from './Newsitem'
 import Spinner from './Spinner';
 import PropTypes from 'prop-types';
+
 export class News extends Component {
     // Free api has a limited hit so we use array method to devlopment time .
     // articles = [
@@ -218,6 +219,25 @@ export class News extends Component {
         // console.log(parseData)
         this.setState({ articles: parseData.articles , totalResult:parseData.totalResults,loading:false})
     }
+    
+    async componentDidUpdate(prevProps) {
+  if (prevProps.category !== this.props.category) {
+    console.log("Category changed:", this.props.category);
+
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=1&pageSize=${this.props.pageSize}`;
+
+    this.setState({ loading: true, page: 1 }); // reset page jab category change ho
+
+    let data = await fetch(url);
+    let parseData = await data.json();
+
+    this.setState({
+      articles: parseData.articles,
+      totalResults: parseData.totalResults,
+      loading: false,
+    });
+  }
+}
     handlePrevclick= async ()=>{
         let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page -1}&pageSize=${this.props.pageSize}`;
         this.setState({loading:true})
@@ -260,7 +280,7 @@ export class News extends Component {
     render() {
         return (
             <div className='container my-3'>
-                <h2 className='text-center'> News Hub Top Headlines</h2>
+                <h2 className='text-center' style={{margin: '35px 0px'}}> News Hub Top Headlines</h2>
                {this.state.loading && <Spinner />}
                 <div className="row">
                     {!this.state.loading && this.state.articles.map((element) => {
