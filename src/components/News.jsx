@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Newsitem from './Newsitem'
 import Spinner from './Spinner';
-
+import PropTypes from 'prop-types';
 export class News extends Component {
     // Free api has a limited hit so we use array method to devlopment time .
     // articles = [
@@ -37,9 +37,9 @@ export class News extends Component {
     //             "name": "ZDNet"
     //         },
     //         "author": "Lance Whitney",
-    //         "title": "Your Windows PC has a secretly useful backup tool - here's how to access it - ZDNET",
+    //         "title": "Your Windows PC has a secretly us&eful backup tool - here's how to access it - ZDNET",
     //         "description": "Looking for a traditional yet flexible program to back up your personal files? Windows has a built-in tool that you can take advantage of.",
-    //         "url": "https://www.zdnet.com/article/your-windows-pc-has-a-secretly-useful-backup-tool-heres-how-to-access-it/",
+    //         "url": "https://www.zdnet.com/article/your-windows-pc-has-a-secretly-us&eful-backup-tool-heres-how-to-access-it/",
     //         "urlToImage": "https://www.zdnet.com/a/img/resize/f29c1127b7aa0b3bf995d0f7b0227b87baf6e2c9/2025/05/08/786e5565-c138-4df9-a5ff-8aafc2d7eaaf/lenovo-yoga-9-2-in-1-aura-edition-hero.png?auto=webp&fit=crop&height=675&width=1200",
     //         "publishedAt": "2025-08-13T08:00:00Z",
     //         "content": "Lance Whitney / Elyse Betters Picaro / ZDNET\r\nZDNET's key takeaways\r\n\u003Cul\u003E\u003Cli\u003EWindows has a hidden backup tool in Windows 10 and 11.\u003C/li\u003E\u003Cli\u003EIt can save files to discs, drives, or network locations.\u003C/… [+3371 chars]"
@@ -64,8 +64,8 @@ export class News extends Component {
     //         },
     //         "author": "Paul Grein",
     //         "title": "The Life of a Prolific Pop Star: ‘Showgirl’ Will Be Taylor Swift’s Ninth Full-Length Album of the 2020s - Billboard",
-    //         "description": "Taylor Swift's just-announced 'The Life of a Showgirl' will be her ninth full-length album of the 2020s. And that doesn’t even count live albums.",
-    //         "url": "http://www.billboard.com/music/pop/taylor-swift-life-of-a-show-girl-9th-album-2020s-1236041646/",
+    //         "description": "Taylor Swift's jus&t-announced 'The Life of a Showgirl' will be her ninth full-length album of the 2020s. And that doesn’t even count live albums.",
+    //         "url": "http://www.billboard.com/mus&ic/pop/taylor-swift-life-of-a-show-girl-9th-album-2020s-1236041646/",
     //         "urlToImage": "https://www.billboard.com/wp-content/uploads/2025/08/taylor-swift-eras-london-2024billboard-1800.jpg?w=1024",
     //         "publishedAt": "2025-08-13T04:59:35Z",
     //         "content": "There are many reasons for Taylor Swift’s extraordinary success: talent, resilience, courage and, not least, a work ethic that is second to none. The country-turned-pop superstar is tireless and extr… [+2202 chars]"
@@ -81,7 +81,7 @@ export class News extends Component {
     //         "url": "https://nypost.com/2025/08/13/sports/vince-mcmahon-defends-bringing-hulk-hogan-back-to-wwe/",
     //         "urlToImage": "https://nypost.com/wp-content/uploads/sites/2/2025/08/newspress-collage-eaf4o4ilb-1755056821483.jpg?quality=75&strip=all&1755042544&w=1024",
     //         "publishedAt": "2025-08-13T04:57:00Z",
-    //         "content": "Vince McMahon defended his decision to bring Hulk Hogan back to WWE in 2018, three years after the company severed ties with him once it was revealed that the pro wrestling icon had used a racial slu… [+3338 chars]"
+    //         "content": "Vince McMahon defended his decision to bring Hulk Hogan back to WWE in 2018, three years after the company severed ties with him once it was revealed that the pro wrestling icon had us&ed a racial slu… [+3338 chars]"
     //     },
     //     {
     //         "source": {
@@ -103,7 +103,7 @@ export class News extends Component {
     //         },
     //         "author": null,
     //         "title": "Mexico sends 26 cartel members to U.S. in deal with Trump administration - CBS News",
-    //         "description": "The transfers are a milestone for the Trump administration, which has made dismantling dangerous drug cartels a key Justice Department priority.",
+    //         "description": "The transfers are a milestone for the Trump administration, which has made dismantling dangerous& drug cartels a key Jus&tice Department priority.",
     //         "url": "https://www.cbsnews.com/news/mexico-sends-26-cartel-members-deal-trump-administration/",
     //         "urlToImage": "https://assets1.cbsnewsstatic.com/hub/i/r/2025/08/13/f118641c-24b4-400c-b985-2d239e462167/thumbnail/1200x630/f19ab8496c7b6d8ba108d8869c75ae0c/ap25225012956647.jpg",
     //         "publishedAt": "2025-08-13T03:44:06Z",
@@ -168,11 +168,11 @@ export class News extends Component {
     //         },
     //         "author": "Amanda Castro",
     //         "title": "Perseid Meteor Shower: Peak Time, Locations to See Shower Tonight - Newsweek",
-    //         "description": "Perseid meteor shower peaks August 12–13 with up to 100 meteors/hour; watch live or catch fireballs before dawn.",
-    //         "url": "https://www.newsweek.com/meteor-shower-live-tracker-updates-perseids-august-tonight-2112534",
+    //         "description": "Perseid meteor shower peaks Augus&t 12–13 with up to 100 meteors/hour; watch live or catch fireballs before dawn.",
+    //         "url": "https://www.newsweek.com/meteor-shower-live-tracker-updates-perseids-augus&t-tonight-2112534",
     //         "urlToImage": "https://d.newsweek.com/en/full/2701250/perseids-meteor-shower.jpg",
     //         "publishedAt": "2025-08-13T01:31:37Z",
-    //         "content": "One of the most anticipated celestial events of the year is set to dazzle skywatchers as the Perseid meteor shower reaches its peak on the night of August 12 into the early hours of August 13. Known … [+16336 chars]"
+    //         "content": "One of the most anticipated celestial events of the year is set to dazzle skywatchers as the Perseid meteor shower reaches its peak on the night of Augus&t 12 into the early hours of Augus&t 13. Known … [+16336 chars]"
     //     },
     //     {
     //         "source": {
@@ -181,14 +181,23 @@ export class News extends Component {
     //         },
     //         "author": "Cristian  Benavides",
     //         "title": "\"Flesh-eating\" bacteria risk increasing as ocean temperatures rise - CBS News",
-    //         "description": "Vibrio vulnificus, a so-called \"flesh-eating\" bacteria, lurks in warm ocean waters like those along Florida's Gulf Coast.",
-    //         "url": "https://www.cbsnews.com/news/flesh-eating-bacteria-vibrio-vulnificus-florida/",
+    //         "description": "Vibrio vulnificus&, a so-called \"flesh-eating\" bacteria, lurks in warm ocean waters like those along Florida's Gulf Coast.",
+    //         "url": "https://www.cbsnews.com/news/flesh-eating-bacteria-vibrio-vulnificus&-florida/",
     //         "urlToImage": "https://assets3.cbsnewsstatic.com/hub/i/r/2025/08/12/dcea6470-42fb-4156-b29c-d4ba297dc88a/thumbnail/1200x630/8ae20cb35c4e05492bfdf6755419d0a8/f5-benavides-florida-bacteria-enp-081225-v3-1-copy-01-frame-265.jpg",
     //         "publishedAt": "2025-08-13T00:20:02Z",
-    //         "content": "Lifelong boat captain George Billiris says he's lucky to be alive after Vibrio vulnificus, the so-called \"flesh-eating\" bacteria that lurks in warm coastal waters like those along Florida's Gulf Coas… [+1914 chars]"
+    //         "content": "Lifelong boat captain George Billiris says he's lucky to be alive after Vibrio vulnificus&, the so-called \"flesh-eating\" bacteria that lurks in warm coastal waters like those along Florida's Gulf Coas… [+1914 chars]"
     //     }
 
     // ]
+    static defaultProps = {
+        pageSize: 8,
+        category: 'general'
+    }
+
+    static propTypes = {
+        pageSize: PropTypes.number,
+        category: PropTypes.string
+    }
     constructor() {
         super();
         // console.log("hello i am constructor from news app");
@@ -201,8 +210,8 @@ export class News extends Component {
     }
     async componentDidMount() {
         console.log("cdm");
-        // let url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=1";
-        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+        // let url = "https://newsapi.org/v2/top-headlines?country=us&category=us&&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=1";
+        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         this.setState({loading:true})
         let data = await fetch(url);
         let parseData = await data.json()
@@ -210,7 +219,7 @@ export class News extends Component {
         this.setState({ articles: parseData.articles , totalResult:parseData.totalResults,loading:false})
     }
     handlePrevclick= async ()=>{
-        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page -1}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page -1}&pageSize=${this.props.pageSize}`;
         this.setState({loading:true})
         let data = await fetch(url);
         let parseData = await data.json()
@@ -226,7 +235,7 @@ export class News extends Component {
     handleNextclick= async()=>{
         // console.log("cdm");
         if(!this.state.page + 1 > Math.ceil(this.state.totalResults/this.props.pageSize)){
-            let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page -1}&pageSize=${this.props.pageSize}`;
+            let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page -1}&pageSize=${this.props.pageSize}`;
             this.setState({loading:true})
             let data = await fetch(url);
             let parseData = await data.json()
@@ -237,7 +246,7 @@ export class News extends Component {
             })
         }
         else{
-            let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page +1}&pageSize=${this.props.pageSize}`;
+            let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page +1}&pageSize=${this.props.pageSize}`;
             let data = await fetch(url);
             let parseData = await data.json()
             console.log(parseData)
