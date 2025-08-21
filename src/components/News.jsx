@@ -4,23 +4,7 @@ import Spinner from './Spinner';
 import PropTypes from 'prop-types';
 
 export class News extends Component {
-    // Free api has a limited hit so we use array method to devlopment time .
-    // articles = [
-    //     {
-    //         "source": {
-    //             "id": null,
-    //             "name": "CNBC"
-    //         },
-    //         "author": "Pia Singh",
-    //         "title": "Stock futures rise as S&P 500 and Nasdaq get set to build on record highs: Live updates - CNBC",
-    //         "description": "The major U.S. indexes are coming off of a strong trading session, which saw the S&P 500 and tech-heavy Nasdaq Composite notch fresh record highs.",
-    //         "url": "https://www.cnbc.com/2025/08/12/stock-market-today-live-updates.html",
-    //         "urlToImage": "https://image.cnbcfm.com/api/v1/image/108184859-1755018332422-Traders-TF-Photo-20250812-ACJ-PRESS-2.jpg?v=1755018447&w=1920&h=1080",
-    //         "publishedAt": "2025-08-13T09:55:00Z",
-    //         "content": "Futures tied to the S&amp;P 500 and Nasdaq 100 moved higher early Wednesday as investors come off a record-setting session that saw encouraging news on the inflation front.\r\nS&amp;P futures climbed 0… [+2032 chars]"
-    //     }
-
-    // ]
+   
     static defaultProps = {
         pageSize: 8,
         category: 'general'
@@ -30,8 +14,8 @@ export class News extends Component {
         pageSize: PropTypes.number,
         category: PropTypes.string
     }
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         // console.log("hello i am constructor from news app");
         this.state = {
             //    articles: this.articles,
@@ -39,74 +23,73 @@ export class News extends Component {
             loading: false,
             page: 1
         }
+       
     }
 
-    async componentDidMount() {
-        // let url = "https://newsapi.org/v2/top-headlines?country=us&category=us&&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=1";
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-        this.setState({loading:true})
-        let data = await fetch(url);
-        let parseData = await data.json()
-        // console.log(parseData)
-        this.setState({ articles: parseData.articles , totalResult:parseData.totalResults,loading:false})
-    }
+
+
+    // async componentDidMount() {
     
-    async componentDidUpdate(prevProps) {
+    // handlePrevclick= async ()=>{
+    //     let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page -1}&pageSize=${this.props.pageSize}`;
+    //     this.setState({loading:true})
+    //     let data = await fetch(url);
+    //     let parseData = await data.json()
+    //     // console.log(parseData)
+    //     this.setState({
+    //         page:this.state.page -1,
+    //         articles: parseData.articles,
+    //         loading:false
+           
+    //     })
+    // }
+
+  
+updateNews = async (page) => {
+  this.props.setProgress(10);
+
+  let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${page}&pageSize=${this.props.pageSize}`;
+
+  this.setState({ loading: true });
+
+  this.props.setProgress(40);
+  let data = await fetch(url);
+  let parseData = await data.json();
+
+  this.props.setProgress(70);
+  this.setState({
+    page: page,
+    articles: parseData.articles,
+    totalResults: parseData.totalResults,
+    loading: false,
+  });
+
+  document.title = `${this.props.category} - Page ${page} - NewsHub`;
+  this.props.setProgress(100);
+};
+
+
+async componentDidMount() {
+  this.updateNews(1);
+}
+
+async componentDidUpdate(prevProps) {
   if (prevProps.category !== this.props.category) {
-    console.log("Category changed:", this.props.category);
-
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=1&pageSize=${this.props.pageSize}`;
-
-    this.setState({ loading: true, page: 1 }); // reset page jab category change ho
-
-    let data = await fetch(url);
-    let parseData = await data.json();
-
-    this.setState({
-      articles: parseData.articles,
-      totalResults: parseData.totalResults,
-      loading: false,
-    });
+    this.updateNews(1); // reset when category changes
   }
 }
-    handlePrevclick= async ()=>{
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page -1}&pageSize=${this.props.pageSize}`;
-        this.setState({loading:true})
-        let data = await fetch(url);
-        let parseData = await data.json()
-        // console.log(parseData)
-        this.setState({
-            page:this.state.page -1,
-            articles: parseData.articles,
-            loading:false
-           
-        })
-    }
 
-    handleNextclick= async()=>{
-        if(!this.state.page + 1 > Math.ceil(this.state.totalResults/this.props.pageSize)){
-            let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page -1}&pageSize=${this.props.pageSize}`;
-            this.setState({loading:true})
-            let data = await fetch(url);
-            let parseData = await data.json()
-            this.setState({
-                page:this.state.page -1,
-                articles: parseData.articles,
-                loading:false
-            })
-        }
-        else{
-            let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=306db2e04ab84c2cb2d17ea5008769b4&page=${this.state.page +1}&pageSize=${this.props.pageSize}`;
-            let data = await fetch(url);
-            let parseData = await data.json()
-            console.log(parseData)
-            this.setState({
-                page:this.state.page +1,
-                articles: parseData.articles,
-                totalResults: parseData.totalResults
-            })
-    }
-    }
+handlePrevclick = () => {
+  this.updateNews(this.state.page - 1);
+};
+
+handleNextclick = () => {
+  this.updateNews(this.state.page + 1);
+};
+
+
+
+
     render() {
         return (
             <div className='container my-3'>
