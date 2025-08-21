@@ -19,6 +19,7 @@ export default class App extends Component {
          <BrowserRouter>
          <Navbar />
            <LoadingBar
+           height={3}
         color="#f11946"
         progress={this.state.progress}
         // onLoaderFinished={() => setProgress(0)}
